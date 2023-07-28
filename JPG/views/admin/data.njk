@@ -1,0 +1,35 @@
+{% extends "admin/main.njk" %}
+
+{% block content %}
+    <table id="example" class="table table-striped" style="width: 100%">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Dynamic Fields</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for categoryData in categoriesData %}
+            <tr>
+                <td>{{ categoryData._id }}</td>
+                <td>{{ categoryData.name }}</td>
+                <td>
+                    <ul>
+                        {% for field in categoryData.dynamicFields %}
+                        <li>{{ field }}</li>
+                        {% endfor %}
+                    </ul>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Dynamic Fields</th>
+            </tr>
+        </tfoot>
+    </table>
+{% endblock %}

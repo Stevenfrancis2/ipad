@@ -1,0 +1,213 @@
+{% extends "main.njk" %}
+
+{% block content %}
+<style>
+    .c-button {
+      color: #000;
+      font-weight: 400;
+      font-size: 9px;
+      text-decoration: none;
+      padding: 0.6em 0.6em;
+      cursor: pointer;
+      display: inline-block;
+      width: 100%;
+      position: relative;
+      z-index: 1;
+      text-align: left;
+      letter-spacing: 0.01px,
+    }
+
+    .c-button--gooey {
+      color: #213d7d;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border: 1px solid #213d7d;
+      border-radius: 0;
+      position: relative;
+      transition: all 70ms ease;
+    }
+    .c-button--gooey:hover {
+      color: #fff;
+      background-color:#213d7d;
+    }
+
+    .active {
+      background-color:#213d7d;
+      font-weight: 400;
+      font-size: 9px;
+      color: #fff;
+      text-decoration: none;
+      cursor: pointer;
+      display: inline-block;
+      position: relative;
+      z-index: 1;
+      text-align: left;
+      scroll-snap-align: start;
+    }
+
+    .menu {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      max-width: 520px; /* Set a max width to limit the menu size */
+      margin: 0 auto; /* Center the menu */
+    }
+
+    .menu .c-button {
+      flex: 0 0 1; /* 3 categories per row with a 10px space between buttons */
+      margin-bottom: 10px; /* Add some vertical spacing between rows */
+      max-width: 150px; /* Adjust the maximum width as needed */
+    }
+
+    .carousel-container {
+      max-width: 450px; /* Set a max width to limit the carousel size */
+      margin: 0 auto; /* Center the carousel */
+    }
+
+  .carousel-wrapper {
+    max-width: 100%; /* Adjust the percentage to control the carousel width */
+    margin: 0 auto;
+    position: relative; /* Center the carousel horizontally */
+  }
+    .carousel {
+      display: flex;
+      overflow-x: auto; /* Enable horizontal scrolling */
+      scroll-snap-type: x mandatory; /* Enable snapping to each item */
+      -webkit-overflow-scrolling: touch; /* Enable smooth scrolling on iOS */
+    }
+    .carousel .c-button {
+      white-space: nowrap; /* Prevent buttons from wrapping to new lines */
+    }
+
+.carousel-arrows {
+    display: flex;
+    justify-content: center; /* Center the arrows horizontally */
+    align-items: center;
+    margin-top: 10px;
+  }
+
+  .arrow {
+    font-size: 24px;
+    cursor: pointer;
+    color: #213d7d;
+    margin: 0 10px; /* Adjust the space between the arrows */
+  }
+
+  /* Custom class for left arrow */
+  .rotate-left {
+     transform: rotate-180;
+  }
+
+  /* Additional style for the paragraph between arrows */
+  .arrows-text {
+    font-size: 16px;
+    color: #213d7d;
+    margin: 0 10px; /* Adjust the space between the arrows and the text */
+  }
+
+</style>
+<div class="container menu">
+ <div class=" carousel-wrapper">
+    <div class="carousel-container">
+      <div class="carousel-arrows">
+        <!-- Left arrow with the custom class -->
+        <span class="arrow left-arrow rotate-left" onclick="slickPrev()">&#8249;</span>
+        <span class="arrows-text">Swipe Or Use the Arrows</span>
+        <!-- Right arrow -->
+        <span class="arrow right-arrow" onclick="slickNext()">&#8250;</span>
+      </div>
+      <div class="carousel">
+
+        <button class="c-button c-button--gooey active" onclick="window.location.href='/markets'">Markets</button>
+        <button class="c-button c-button--gooey" onclick="window.location.href='/beachbars'">Beach Bars</button>
+        <button class="c-button c-button--gooey" onclick="window.location.href='/desserts'">Desserts</button>
+        <button class="c-button c-button--gooey" onclick="window.location.href='/transportations'">Transportation</button>
+        <button class="c-button c-button--gooey" onclick="window.location.href='/gaming'">Gaming Lounges</button>
+        <button class="c-button c-button--gooey" onclick="window.location.href='/shops'">Shops</button>
+        <button class="c-button c-button--gooey" onclick="window.location.href='/beauty'">Beauty Lounges</button>
+        <button class="c-button c-button--gooey" onclick="window.location.href='/'">Restaurants</button>
+        <button class="c-button c-button--gooey" onclick="window.location.href='/delivery'">Delivery</button>
+      </div>
+    </div>
+     
+  </div>
+</div>
+
+
+<div class="container-fluid p-5 card-col">
+    <div class="row justify-content-center w-100">
+       {% for category in categories %}
+         {% if category.name == 'Markets' %}
+        <div class="col-lg-2 mb-3 card-col">
+          <div class="card" style="width: 15rem; background: rgba(239, 239, 240, 1);">
+            <div class="container" style="padding: 20px;">
+              <img style="border-radius: 10px; text-align: center;" src="{{category.image}}" class="card-img-top" alt="...">
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">
+                {% if category.dynamicFields.value and category.dynamicFields.key and category.dynamicFields.key.indexOf('name') !== -1 %}
+                  {{ category.dynamicFields.value[category.dynamicFields.key.indexOf('name')] }}
+                {% endif %}
+              </h5>
+              <p class="card-text" style="font-size:10px;">
+                {% if category.dynamicFields.value and category.dynamicFields.key and category.dynamicFields.key.indexOf('description') !== -1 %}
+                  {{ category.dynamicFields.value[category.dynamicFields.key.indexOf('description')] }}
+                {% endif %}
+              </p>
+              <div class="container social-container" style="padding-left: 0px!important;">
+                {% if category.dynamicFields.value and category.dynamicFields.key and category.dynamicFields.key.indexOf('whatsapp') !== -1 %}
+                  <a href="https://wa.me/{{ category.dynamicFields.value[category.dynamicFields.key.indexOf('whatsapp')] }}"><i class="fab fa-whatsapp"></i></a>
+                {% endif %}
+                {% if category.dynamicFields.value and category.dynamicFields.key and category.dynamicFields.key.indexOf('facebook') !== -1 %}
+                  <a href="{{ category.dynamicFields.value[category.dynamicFields.key.indexOf('facebook')] }}"><i class="fab fa-facebook"></i></a>
+                {% endif %}
+                {% if category.dynamicFields.value and category.dynamicFields.key and category.dynamicFields.key.indexOf('instagram') !== -1 %}
+                  <a href="{{ category.dynamicFields.value[category.dynamicFields.key.indexOf('instagram')] }}"><i class="fa-brands fa-instagram"></i></a>
+                {% endif %}
+                {% if category.dynamicFields.value and category.dynamicFields.key and category.dynamicFields.key.indexOf('location') !== -1 %}
+                  <a href="{{ category.dynamicFields.value[category.dynamicFields.key.indexOf('location')] }}"><i class="fas fa-map-marker-alt"></i></a>
+                {% endif %}
+                {% if category.dynamicFields.value and category.dynamicFields.key and category.dynamicFields.key.indexOf('whatsapp') !== -1 %}
+                  <a href="tel:{{ category.dynamicFields.value[category.dynamicFields.key.indexOf('whatsapp')] }}"><i class="fas fa-mobile-android-alt"></i></a>
+                {% endif %}
+              </div>
+             
+              <a href="/info?categoryId={{ category._id }}" class="btn see-details" style="text-align: center; font-size: 14px;">
+                See Details <i style="font-size: 10px" class="fas">&#xf061;</i>
+              </a>            
+              </div>
+          </div>
+        </div>
+      {% endif %}
+      {% endfor %}
+    
+    </div>
+</div>
+			
+<body>
+  <!-- Your existing content goes here -->
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const carousel = document.querySelector('.carousel');
+    const carouselOptions = {
+      infinite: false,
+      slidesToShow: 3,
+      slidesToScroll: 1,
+      swipeToSlide: true,
+      arrows: false // Remove default arrows
+    };
+    $(carousel).slick(carouselOptions);
+  });
+
+  function slickNext() {
+    $('.carousel').slick('slickNext');
+  }
+
+  function slickPrev() {
+    $('.carousel').slick('slickPrev');
+  }
+</script>
+</body>
+
+{% endblock %}

@@ -1,0 +1,207 @@
+
+{% extends "admin/main.njk" %}
+
+{% block content %}
+<script>
+    function addDynamicField(containerId) {
+        var dynamicFieldsContainer = document.getElementById(containerId);
+        var dynamicField = document.createElement('div');
+        dynamicField.innerHTML = `
+            <div class="mb-3">
+                <label class="form-label">Field Name</label>
+                <input type="text" class="form-control" name="dynamicFields[key][]" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Field Value</label>
+                <input type="text" class="form-control" name="dynamicFields[value][]" required>
+            </div>
+            <button type="button" class="btn btn-danger" onclick="removeDynamicField(this)">Delete</button>
+        `;
+        dynamicFieldsContainer.appendChild(dynamicField);
+    }
+
+    function addDynamicFieldOnAddModal() {
+        addDynamicField('dynamicFieldsContainer');
+    }
+
+    function addDynamicFieldOnEditModal(modalId) {
+        var containerId = 'editDynamicFieldsContainer-' + modalId;
+        addDynamicField(containerId);
+    }
+
+    function removeDynamicField(button) {
+        var dynamicField = button.parentNode;
+        var dynamicFieldsContainer = dynamicField.parentNode;
+        dynamicFieldsContainer.removeChild(dynamicField);
+    }
+</script>
+
+<button class="btn btn-dark" style="float: right;" data-bs-toggle="modal" data-bs-target="#addModal">+</button>
+<div class="table-responsive">
+    <table id="example" class="table table-striped" style="width: 100%">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Image</th>
+                <th>Dynamic Fields</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Loop through the categories and display them dynamically -->
+            {% for category in categories %}
+            <tr>
+                <td>{{ category._id }}</td>
+                <td>{{ category.name }}</td>
+                <td>{{ category.image }}</td>
+                <td>
+                    {% for i in range(category.dynamicFields.key.length) %}
+                    <div>{{ category.dynamicFields.key[i] }}: {{ category.dynamicFields.value[i] }}</div>
+                    {% endfor %}
+                </td>
+                <td>
+                    <div class="dropdown">
+                        <button class="btn btn-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#editModal-{{ category._id }}">Edit</a></li>
+                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#deleteModal-{{ category._id }}">Delete</a></li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Image</th>
+                <th>Dynamic Fields</th>
+                <th>Actions</th>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+<!-- Add Category Modal -->
+<div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="/AdminPanel/Categories" method="POST" enctype="multipart/form-data">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addModalLabel">Add Category</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="categoryName" class="form-label">Category Name</label>
+                        <select class="form-select" id="categoryName" name="name" required>
+                            <option value="" disabled selected>Select a Category Name</option>
+                            <option value="Restaurants">Restaurants</option>
+                            <option value="Delivery">Delivery</option>
+                            <option value="Markets">Markets</option>
+                            <option value="Night Clubs">Night Clubs</option>
+
+                            <!-- Add more options as needed -->
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Field Value</label>
+                        <input type="file" class="form-control" name="image" required>
+                    </div>
+                    <div id="dynamicFieldsContainer">
+                        <!-- Dynamic fields will be added here -->
+                    </div>
+                    <button type="button" class="btn btn-primary" onclick="addDynamicFieldOnAddModal()">Add Field</button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save Category</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Modals -->
+{% for category in categories %}
+<div class="modal fade" id="editModal-{{ category._id }}" tabindex="-1" aria-labelledby="editModalLabel-{{ category._id }}" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="/AdminPanel/Categories/Update/{{ category._id }}" method="POST" enctype="multipart/form-data">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel-{{ category._id }}">Edit Item</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="editCategoryName" class="form-label">Category Name</label>
+                        <select class="form-select" id="editCategoryName" name="name" required>
+                            <option value="" disabled selected>Select a Category Name</option>
+                            <option value="Restaurants" {% if category.name == 'Restaurants' %}selected{% endif %}>Restaurants</option>
+                            <option value="Delivery" {% if category.name == 'Delivery' %}selected{% endif %}>Delivery</option>
+                            <option value="Markets" {% if category.name == 'Markets' %}selected{% endif %}>Markets</option>
+                            <option value="Night CLubs" {% if category.name == 'Night Clubs' %}selected{% endif %}>Night CLubs</option>
+                            <!-- Add more options as needed -->
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Image</label>
+                        <input type="file" class="form-control" name="image" value="{{ category.image }}">
+                        {% if category.image %}
+                        <img src="{{ category.image }}" alt="Category Image" style="max-width: 100px;">
+                        {% else %}
+                        <p>No image available.</p>
+                        {% endif %}
+                    </div>
+                    <div id="editDynamicFieldsContainer-{{ category._id }}">
+                        {% for i in range(category.dynamicFields.key.length) %}
+                        <div class="dynamic-field">
+                            <div class="mb-3">
+                                <label class="form-label">Field Name</label>
+                                <input type="text" class="form-control" name="dynamicFields[key][{{ loop.index0 }}]" value="{{ category.dynamicFields.key[i] }}" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Field Value</label>
+                                <input type="text" class="form-control" name="dynamicFields[value][{{ loop.index0 }}]" value="{{ category.dynamicFields.value[i] }}" required>
+                            </div>
+                            <input type="hidden" name="dynamicFields[delete][{{ loop.index0 }}]" value="false">
+                            <button type="button" class="btn btn-danger" onclick="removeDynamicField(this)">Delete Field</button>
+                        </div>
+                        {% endfor %}
+                        <button type="button" class="btn btn-primary" onclick="addDynamicField('editDynamicFieldsContainer-{{ category._id }}')">Add Field</button>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+<!-- Delete Modals -->
+{% for category in categories %}
+<div class="modal fade" id="deleteModal-{{ category._id }}" tabindex="-1" aria-labelledby="deleteModalLabel-{{ category._id }}" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel-{{ category._id }}">Delete Item</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete this item?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <form action="/AdminPanel/Categories/Delete/{{ category._id }}" method="POST">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}

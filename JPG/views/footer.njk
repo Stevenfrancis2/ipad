@@ -1,0 +1,250 @@
+<style>
+.foot {
+  background-color: #004F98;
+  color: #FFFFFF;
+  padding: 30px;
+}
+
+.foot-title{
+    
+    text-align:center;
+    font: normal normal bold 20px/20px Diavlo;
+    letter-spacing: 0px;
+    color: #F7F4C4;
+    
+}
+.footer-title-2{
+   
+    font: normal normal bold 20px/20px Diavlo;
+    letter-spacing: 0px;
+    color: #FFFFFF;
+    opacity: 1;
+}
+
+.foot-bottom {
+  display: flex;
+  justify-content: space-between;
+  bottom: 5px;
+}
+
+.foot-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+.foot-list li {
+  margin-left: 10px;
+  font-size: 7px;
+}
+
+.foot-CR {
+  font-size: 9px;
+}
+
+.bton {
+ background-color: #F7F4C4;
+ color: #004F98;
+ letter-spacing: 0.05px;
+ cursor: pointer;
+}
+
+.chat-button {
+  position: fixed;
+  bottom: 80px; /* Adjust the distance from the bottom as needed */
+  right: 25px; /* Adjust the distance from the right as needed */
+  background-color: #f7ebb0; /* Set the background color */
+  color: #ffffff; /* Set the text color */
+  padding: 10px 20px; /* Set the padding */
+  border-radius: 50px; /* Round the button */
+  cursor: pointer;
+  z-index: 9999; /* Ensure it stays on top of other elements */
+}
+.chat-card {
+  position: fixed;
+  bottom: 200px; /* Adjust the distance from the bottom as needed */
+  right: 40px;
+  width: 300px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  display: none;
+}
+
+.chat-header {
+  padding: 10px;
+  background-color: #f2f2f2;
+  display: flex;
+  align-items: center;
+}
+
+.chat-header .h2 {
+  font-size: 16px;
+  color: #333;
+}
+
+.chat-body {
+  padding: 20px;
+}
+
+.product{
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.incoming {
+  background-color: #e1e1e1;
+}
+
+.outgoing {
+  background-color: #f2f2f2;
+  text-align: right;
+}
+
+.product p {
+  font-size: 14px;
+  color: #333;
+  margin: 0;
+}
+
+.chat-footer {
+  padding: 10px;
+  background-color: #f2f2f2;
+  display: flex;
+}
+
+.chat-footer input[type="text"] {
+  flex-grow: 1;
+  padding: 5px;
+  border: none;
+  border-radius: 3px;
+}
+
+.chat-footer button {
+  padding: 5px 10px;
+  border: none;
+  background-color: #4285f4;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.chat-footer button:hover {
+  background-color: #0f9d58;
+}
+
+@keyframes chatAnimation {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.chat-card product {
+  animation: chatAnimation 0.3s ease-in-out;
+  animation-fill-mode: both;
+  animation-delay: 0.1s;
+}
+
+.chat-card .product:nth-child(even) {
+  animation-delay: 0.2s;
+}
+
+.chat-card .product:nth-child(odd) {
+  animation-delay: 0.3s;
+}
+
+.halffoot{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+</style>
+ 
+  <div class="chat-button" onclick="toggleChat()">
+  <?xml version="1.0" ?><svg fill="none" height="40" viewBox="0 0 15 15" width="40" xmlns="http://www.w3.org/2000/svg"><path d="M7.5 5C6.67157 5 6 5.67157 6 6.5C6 7.32843 6.67157 8 7.5 8C8.32843 8 9 7.32843 9 6.5C9 5.67157 8.32843 5 7.5 5Z" fill="black"/><path clip-rule="evenodd" d="M8.99999 1.99988L8 1.99989V0H7V1.9999L5.99991 1.9999C2.68625 1.99993 9.17923e-06 4.68619 0 7.99985C-9.179e-06 11.3135 2.68627 13.9998 5.99996 13.9998H9.00004C9.13059 13.9998 9.26024 13.9957 9.38884 13.9874L13.3788 14.9849C13.5492 15.0275 13.7294 14.9776 13.8536 14.8534C13.9778 14.7292 14.0277 14.549 13.9851 14.3786L13.4081 12.0704C14.3958 11.0012 15 9.57071 15 7.99985C15 4.68614 12.3137 1.99985 8.99999 1.99988ZM5 6.5C5 5.11929 6.11929 4 7.5 4C8.88071 4 10 5.11929 10 6.5C10 7.88071 8.88071 9 7.5 9C6.11929 9 5 7.88071 5 6.5ZM7.49998 12C6.43628 12 5.45756 11.6303 4.68726 11.0128L5.31272 10.2326C5.91201 10.713 6.67179 11 7.49998 11C8.32816 11 9.08794 10.713 9.68723 10.2326L10.3127 11.0128C9.54239 11.6303 8.56367 12 7.49998 12Z" fill="black" fill-rule="evenodd"/></svg>
+</div>
+
+<div class="chat-card" id="chat-card">
+  <div class="chat-header">
+    <div class="h2">Batrouni GPT</div>
+  </div>
+  <div class="chat-body">
+
+  </div>
+  <div class="chat-footer">
+    <button onclick="sendMessage()">Send</button>
+  </div>
+</div>
+
+</div>    
+<div class="container-fluid foot">
+  <h1 class="foot-title">BATROUN <span class="footer-title-2">Guide</span></h1>
+  <div class="halffoot">
+    <button class="bton" onclick="window.location.href='/contact'">Contact Us</button>
+  </div>
+  
+  <div class="foot-bottom">
+    <ul class="foot-list">
+      <li>Privacy Policy</button></li>
+      <li>Terms of Use</button></li>
+    </ul>
+
+    <p class="foot-CR">Copyright © 2023 Batroun Guide.<br> All Rights Reserved.</p>
+  </div>
+
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/c978f17570.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> <!-- Add this line to include Axios -->
+
+<script>
+// Function to open or close the chat-card
+  function toggleChat() {
+    var chatCard = document.getElementById("chat-card");
+    var isChatCardVisible = chatCard.style.display === "block";
+
+    if (isChatCardVisible) {
+      chatCard.style.display = "none"; // Hide the chat-card
+    } else {
+      chatCard.style.display = "block"; // Show the chat-card
+    }
+  }
+
+  function sendMessage() {
+    
+    const fastAPIUrl = 'https://batrounguidechatbot.vercel.app/api.llm_chain_simple.chain/';
+
+// Example POST request with data
+    const postData = {
+    "product": "ice cream"
+  };
+
+    axios.post(`${fastAPIUrl}/run`, postData)
+      .then(response => {
+        console.log('Response:', response.data);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+      }  
+</script>
+
+</body>
+</html>
+
+

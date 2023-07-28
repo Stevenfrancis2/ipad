@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>{{category.name}}</title>
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+ 
+  <style>
+      html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+button, input[type="button"], input[type="submit"], input[type="reset"], input[type="file"] {
+  border-radius: 0;
+}
+input[type="text"]::-ms-clear {
+  display: none;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+sup {
+  vertical-align: super;
+}
+sub {
+  vertical-align: sub;
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: "";
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+* {
+  box-sizing: border-box;
+}
+   
+
+
+
+/* Common */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
+}
+main {
+  padding: 30px 20px 0px 20px;
+  max-width: 935px;
+  margin: 0 auto;
+}
+@media only screen and (max-width: 735px) {
+  main {
+    padding: 0;
+  }
+}
+button {
+  all: unset;
+  font-weight: 600;
+  font-size: 14px;
+  color: #0095f6;
+  -webkit-text-fill-color: #0095f6;
+  line-height: 18px;
+  padding: 5px 9px;
+  border-radius: 4px;
+}
+button.primary {
+  background: #0095f6;
+  color: white;
+  -webkit-text-fill-color: white;
+}
+.mobile-only {
+  display: none;
+}
+@media only screen and (max-width: 735px) {
+  .mobile-only {
+    display: block;
+  }
+}
+@media only screen and (max-width: 735px) {
+  .desktop-only {
+    display: none;
+  }
+}
+.search-icon {
+  background-image: url("/images/icons.png");
+  background-size: 440px 411px;
+  background-position: -428px -241px;
+  width: 10px;
+  height: 10px;
+  display: block;
+}
+.verfied-icon {
+  display: inline-block;
+  background-image: url("/images/icons.png");
+  background-position: -194px -351px;
+  background-size: 440px 411px;
+  width: 18px;
+  height: 18px;
+}
+.arrow-right-icon {
+  background-image: url("/images/icons.png");
+  background-size: 440px 411px;
+  background-position: -402px -207px;
+  width: 24px;
+  height: 24px;
+  /* transform: scaleX(-1); */
+  transform: rotate(180deg);
+}
+.media-icon {
+  background-image: url("/images/icons-2.png");
+  background-size: 65px 65px;
+  background-position: 0 0;
+  display: block;
+  width: 32px;
+  height: 32px;
+}
+
+
+
+/* Navigation */
+.nav-content .logo {
+  height: 29px;
+}
+.search-guide .search-placeholder {
+  color: hsl(0, 0%, 56%);
+  font-size: 14px;
+  margin-left: 6px;
+}
+.search-guide {
+  width: 215px;
+  background: hsl(0, 0%, 98%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 6px 26px;
+  border-radius: 3px;
+  border: 1px solid hsl(0, 0%, 86%);
+}
+nav .nav-content {
+  max-width: 935px;
+  margin: 0 auto;
+  height: 54px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+@media only screen and (max-width: 735px) {
+  nav .nav-content {
+    padding: 0 20px;
+  }
+}
+nav .mock {
+  height: 54px;
+}
+nav .fixed {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: white;
+  border-bottom: 1px solid hsl(0, 0%, 86%);
+  z-index: 1;
+}
+
+/* Profile */
+header {
+  margin-bottom: 44px;
+}
+.header-wrap {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  column-gap: 30px;
+}
+@media only screen and (max-width: 735px) {
+  header {
+    display: block;
+    margin-bottom: 0px;
+  }
+  .header-wrap {
+    display: flex;
+    padding: 14px;
+    column-gap: 0px;
+  }
+}
+
+.header-wrap .profile-pic {
+  height: 160px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.header-wrap .profile-pic img {
+  width: 150px;
+  height: 150px;
+  border-radius: 1000px;
+  border: 1px solid hsl(0, 0%, 86%);
+}
+@media only screen and (max-width: 735px) {
+  .header-wrap .profile-pic {
+    width: 77px;
+    height: 77px;
+    margin-right: 28px;
+  }
+  .header-wrap .profile-pic img {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.profile-info .title h2 {
+  font-size: 28px;
+  font-weight: 300;
+}
+.profile-info .title span {
+  margin-left: 8px;
+}
+.profile-info .title button {
+  margin-left: 20px;
+}
+@media only screen and (max-width: 735px) {
+  .profile-info .title h2 {
+    display: inline-block;
+    margin-bottom: 12px;
+  }
+  .profile-info .title span {
+    display: inline-block;
+  }
+  .profile-info .title button {
+    display: block;
+    margin-left: 0px;
+  }
+}
+.profile-info .title {
+  display: flex;
+  align-items: center;
+}
+@media only screen and (max-width: 735px) {
+  .profile-info .title {
+    display: block;
+  }
+}
+.profile-info .details li {
+  font-size: 16px;
+  font-weight: 400;
+  margin-right: 40px;
+}
+.profile-info .details li span {
+  font-weight: 600;
+}
+.profile-info .details ul {
+  display: flex;
+}
+.profile-info .descriptions h1 {
+  font-weight: 600;
+  line-height: 24px;
+}
+.profile-info .descriptions span {
+  font-weight: 400;
+  line-height: 24px;
+}
+.profile-info .descriptions a {
+  color: hsl(209, 100%, 21%);
+}
+@media only screen and (max-width: 735px) {
+  .profile-info .descriptions {
+    padding-left: 16px;
+    padding-bottom: 21px;
+    font-size: 14px;
+    margin-bottom: 0px !important;
+  }
+  .profile-info .descriptions h1 {
+    line-height: 20px;
+  }
+  .profile-info .descriptions span {
+    line-height: 20px;
+  }
+}
+.profile-info .row {
+  margin-bottom: 20px;
+}
+.profile-info .row.last {
+  margin-bottom: 0px;
+}
+
+/* Story */
+.story-item .image {
+  padding: 3px;
+  border-radius: 1000px;
+  border: 1px solid hsl(0, 0%, 86%);
+}
+.story-item .image img {
+  border-radius: 1000px;
+  width: 77px;
+  height: 77px;
+  display: block;
+}
+@media only screen and (max-width: 735px) {
+  .story-item .image img {
+    width: 56px;
+    height: 56px;
+  }
+}
+.story-item .title {
+  padding-top: 15px;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  white-space: nowrap;
+  width: 80px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+@media only screen and (max-width: 735px) {
+  .story-item .title {
+    font-size: 12px;
+    padding-top: 8px;
+    font-weight: 400;
+    width: 65px;
+  }
+}
+.story-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 15px;
+}
+@media only screen and (max-width: 735px) {
+  .story-item {
+    padding: 0px 5px;
+  }
+}
+.stories {
+  display: flex;
+  justify-content: start;
+  padding: 0 24px;
+  overflow-x: scroll;
+  position: relative;
+  margin-bottom: 44px;
+}
+@media only screen and (max-width: 735px) {
+  .stories {
+    padding: 0;
+    margin-bottom: 21px;
+  }
+}
+
+.slider-button-next {
+  position: sticky;
+  right: 0;
+  cursor: pointer;
+}
+
+/* Tabs */
+.tab-item span {
+  font-size: 12px;
+  font-weight: 600;
+  color: hsl(0, 0%, 56%);
+  margin-left: 6px;
+}
+.tab-item {
+  display: flex;
+  align-items: center;
+  height: 52px;
+}
+.tab-item.active {
+  border-top: 1px solid hsl(0, 0%, 15%);
+  margin-top: -1px;
+  color: hsl(0, 0%, 15%);
+}
+.tabs {
+  border-top: 1px solid hsl(0, 0%, 86%);
+  display: flex;
+  justify-content: center;
+}
+
+/* Mobile Tabs */
+.mobile-tabs li {
+  font-size: 14px;
+  font-weight: 400;
+  color: rgb(142, 142, 142);
+  line-height: 18px;
+  text-align: center;
+}
+.mobile-tabs li div {
+  font-weight: 600;
+  color: rgb(38, 38, 38);
+}
+.mobile-tabs ul {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 12px 0;
+  border-top: 1px solid rgb(219, 219, 219);
+}
+.mobile-tabs .actions {
+  display: flex;
+  justify-content: space-around;
+  height: 44px;
+  align-items: center;
+  border-top: 1px solid rgb(219, 219, 219);
+}
+
+/* Gallery */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+@media only screen and (max-width: 735px) {
+  .gallery {
+    gap: 3px;
+  }
+}
+.gallery-item {
+  position: relative;
+}
+.gallery-item img {
+  width: 100%;
+  display: block;
+}
+.gallery-item .media-icon {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}
+
+    .reviews-section {
+      padding: 30px 20px;
+      max-width: 935px;
+      margin: 0 auto;
+    }
+
+    .review {
+      margin-bottom: 20px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    /* Styling for the follow button */
+    .follow-button {
+      all: unset;
+      font-weight: 600;
+      font-size: 14px;
+      color: #0095f6;
+      -webkit-text-fill-color: #0095f6;
+      line-height: 18px;
+      padding: 5px 9px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .mobile-only {
+      display: none;
+    }
+
+    @media only screen and (max-width: 735px) {
+      .mobile-only {
+        display: block;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+     <header>
+        <div class="header-wrap">
+          <div class="profile-pic">
+            <img src="{{category.image}}" alt="profile-logo" />
+          </div>
+          <div class="profile-info">
+            <div class="title row">
+               {% if category.dynamicFields.value and category.dynamicFields.key and category.dynamicFields.key.indexOf('name') !== -1 %}
+                  <h2>{{ category.dynamicFields.value[category.dynamicFields.key.indexOf('name')] }}</h2>
+                {% endif %}
+              
+                <button class="follow-button primary" data-toggle="modal" data-target="#submitReviewModal">Add Review</button>
+            </div>
+            <div class="desktop-only">
+              
+              <div class="descriptions row last">
+               {% if category.dynamicFields.value and category.dynamicFields.key and category.dynamicFields.key.indexOf('name') !== -1 %}
+                  <h1>{{ category.dynamicFields.value[category.dynamicFields.key.indexOf('name')] }}</h1>
+                {% endif %}
+                <span>
+                  {% if category.dynamicFields.value and category.dynamicFields.key and category.dynamicFields.key.indexOf('description') !== -1 %}
+                  {{ category.dynamicFields.value[category.dynamicFields.key.indexOf('description')] }}
+                {% endif %}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="profile-info mobile-only">
+          <div class="descriptions row">
+           
+           {% if category.dynamicFields.value and category.dynamicFields.key and category.dynamicFields.key.indexOf('name') !== -1 %}
+                  <h1>{{ category.dynamicFields.value[category.dynamicFields.key.indexOf('name')] }}</h1>
+                {% endif %}
+                <span>
+                  {% if category.dynamicFields.value and category.dynamicFields.key and category.dynamicFields.key.indexOf('description') !== -1 %}
+                  {{ category.dynamicFields.value[category.dynamicFields.key.indexOf('description')] }}
+                {% endif %}
+                </span>
+          </div>
+        </div>
+      </header>
+
+    <h3>Reviews</h3>
+    <section class="reviews-section" id="reviewsSection">
+      {% if reviews.length > 0 %}
+        {% for review in reviews %}
+          <div class="review">
+            <p><strong>Rating: {{ review.rating }}</strong></p>
+            <br>
+            <p>{{ review.review }}</p>
+            <br>
+            <p><em>Posted by: {{ review.email }}</em></p>
+          </div>
+        {% endfor %}
+      {% else %}
+        <p>No reviews available for this category.</p>
+      {% endif %}
+    </section>
+
+   
+           
+     <div class="modal fade" id="submitReviewModal" tabindex="-1" role="dialog" aria-labelledby="submitReviewModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="submitReviewModalLabel">Submit a Review</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="reviewForm" action="/addReview" method="POST">
+          <!-- Hidden input to store the category ID -->
+          <input type="hidden" id="categoryId" name="categoryId" value="{{category._id}}">
+
+          <!-- Textarea for the review content -->
+          <div class="form-group">
+            <label for="review">Your Review:</label>
+            <textarea class="form-control" name="review" id="review" rows="4" placeholder="Write your review here..."></textarea>
+          </div>
+
+         <!-- Input for the rating -->
+          <div class="form-group">
+            <label for="rating">Rating (1 to 5):</label>
+            <input type="range" class="form-control" name="rating" id="rating" min="1" max="5" value="1">
+            <span id="ratingLabel" class="rating-label">1</span>
+          </div>
+
+
+          <!-- Input for the email -->
+          <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" class="form-control" name="email" id="email" placeholder="Your email address">
+          </div>
+
+          <!-- Submit button -->
+          <button type="submit" class="btn btn-primary">Submit Review</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+  </main>
+
+   <script>
+    // Get references to the range input and the rating label
+      const ratingInput = document.getElementById("rating");
+      const ratingLabel = document.getElementById("ratingLabel");
+
+      // Add an event listener to the range input
+      ratingInput.addEventListener("input", function() {
+        // Update the rating label with the current value of the range input
+        ratingLabel.textContent = ratingInput.value;
+      });
+
+   </script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  
+
+
+
+</body>
+</html>
+
